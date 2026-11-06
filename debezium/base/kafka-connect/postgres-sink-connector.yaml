@@ -12,7 +12,7 @@ spec:
   tasksMax: 1
   config:
     # Topics to consume (from Debezium MySQL source)
-    topics: {{TOPICOS_TO_CONSUME}}
+    topics: dbserver1.inventory.products
     
     # JDBC connection configuration
     connection.url: "jdbc:postgresql://postgres:5432/inventory"
@@ -20,7 +20,9 @@ spec:
     connection.password: "postgres" # notsecret - demo value
     
     # Insert mode - upsert to handle updates
-   {{INSERT_MODE}}
+    insert.mode: "upsert"
+    primary.key.mode: "record_key"
+    primary.key.fields: "id"
     
     # Table naming
     table.name.format: "products"
@@ -29,7 +31,12 @@ spec:
     schema.evolution: "basic"
     
     # Converters - match the source connector
-    {{CONVERTERS}}
+    key.converter: org.apache.kafka.connect.json.JsonConverter
+    key.converter.schemas.enable: true
+    value.converter: org.apache.kafka.connect.json.JsonConverter
+    value.converter.schemas.enable: true
     
     # Error handling
-    {{ERROR_HANDLING}}
+    errors.tolerance: all
+    errors.log.enable: true
+    errors.log.include.messages: true

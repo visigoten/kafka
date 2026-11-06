@@ -26,7 +26,7 @@ spec:
   source:
     type: Git
     git:
-      uri: https://github.com/ocp4labs/kafka.git
+      uri: https://github.com/visigoten/kafka.git
       ref: main
     contextDir: debezium/quarkus-data-producer
   strategy:
@@ -35,7 +35,7 @@ spec:
       from:
         kind: ImageStreamTag
         namespace: openshift
-        name: ubi8-openjdk-21:1.18
+        name: ubi8-openjdk-21:latest
       env:
         - name: MAVEN_ARGS
           value: "package -DskipTests -Dquarkus.package.jar.type=uber-jar"

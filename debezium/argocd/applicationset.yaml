@@ -23,7 +23,7 @@ spec:
       project: default
       source:
         # Update this to your Git repository URL
-        repoURL: https://github.com/ocp4labs/kafka.git
+        repoURL: https://github.com/visigoten/kafka.git
         targetRevision: main
         path: '{{path}}'
       destination:

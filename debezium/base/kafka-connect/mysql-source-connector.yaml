@@ -7,7 +7,7 @@ metadata:
     strimzi.io/cluster: cdc-connect-cluster
     app.kubernetes.io/part-of: amq-streams-cdc-demo
 spec:
-  class: {{CONNECTOR_CLASS}}
+  class: io.debezium.connector.mysql.MySqlConnector
   tasksMax: 1
   config:
     # Database connection
@@ -18,7 +18,9 @@ spec:
     database.server.id: 184054
     
     # Topic routing
-   {{TOPIC_ROUTING}}
+    topic.prefix: dbserver1
+    database.include.list: inventory
+    table.include.list: inventory.products
     
     # Schema history
     schema.history.internal.kafka.bootstrap.servers: cdc-cluster-kafka-bootstrap:9092
@@ -28,5 +30,9 @@ spec:
     snapshot.mode: initial
     
     # Transforms to flatten the message
-   {{TRANSFORMACIONES}}
+    transforms: unwrap
+    transforms.unwrap.type: io.debezium.transforms.ExtractNewRecordState
+    transforms.unwrap.drop.tombstones: false
+    transforms.unwrap.delete.handling.mode: rewrite
+    transforms.unwrap.add.fields: op,table,source.ts_ms
 

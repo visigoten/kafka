@@ -12,7 +12,7 @@ metadata:
     - cdc
     - openshift
   links:
-    - url: https://github.com/ocp4labs/kafka
+    - url: https://github.com/visigoten/kafka
       title: GitHub Repo
       icon: github
 spec:
